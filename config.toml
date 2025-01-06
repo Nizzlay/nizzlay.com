@@ -1,7 +1,7 @@
-base_url = "https://YOUR_URL.TLD"
-title = "site title"
+base_url = "https://nizzlay.com"
+title = "Nizzlay"
 description = "YOUR_SITE_DESCRIPTION"
-author = "YOUR_NAME"
+author = "Nizzlay"
 theme = "tabi"
 generate_feeds = true
 compile_sass = true
@@ -53,11 +53,11 @@ override_serif_with_sans = false
 
 # Enable JavaScript theme toggler to allow users to switch between dark/light mode.
 # If disabled, your site will use the theme specified in the `default_theme` variable.
-theme_switcher = true
+theme_switcher = false
 
 # This setting determines the default theme on load ("light" or "dark").
 # To follow the user's OS theme, leave it empty or unset.
-default_theme = ""
+default_theme = "dark"
 
 # Choose the colourscheme (skin) for the theme. Default is "teal".
 # Skin available: blue, lavender, mint, red, sakura, teal, monochrome, lowcontrast_orange, lowcontrast_peach, lowcontrast_pink, indigo_ingot, evangelion
@@ -164,13 +164,13 @@ serve_local_mermaid = true
 
 # Show links to previous and next articles at the bottom of posts.
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-show_previous_next_article_links = false
+show_previous_next_article_links = true
 
 # Invert order of the links to previous and next articles at the bottom of posts.
 # By default, next articles are on the left side of the page and previous articles are on the right side.
 # To reverse the order (next articles on the right and previous articles on the left), set it to true.
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-invert_previous_next_article_links = false
+invert_previous_next_article_links = true
 
 # Whether the navigation for previous/next article should match the full width of the site (same as the navigation bar at the top) or the article width.
 # To match the navigation bar at the top, set it to true.
@@ -187,11 +187,11 @@ quick_navigation_buttons = true
 
 # Date format used when listing posts (main page, /blog section, tag posts list…)
 # Default is "6th July 2049" in English and "%d %B %Y" in other languages.
-# long_date_format = "%d %B %Y"
+long_date_format = "%A %d %B %Y"
 
 # Date format used for blog posts.
 # Default is "6th July 2049" in English and "%-d %B %Y" in other languages.
-short_date_format = ""
+short_date_format = "%d-%m-%Y"
 
 # Custom separator used in title tag and posts metadata (between date, time to read, and tags).
 separator = "•"
@@ -210,18 +210,18 @@ tag_sorting = "name"
 # Loads JS to filter. If JS is disabled, the buttons are links to the tag's page.
 # Can be set at the section or config.toml level, following the hierarchy: section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
 # Default: true
-enable_cards_tag_filtering = true
+enable_cards_tag_filtering = false
 
 # Invert the order of the site title and page title in the browser tab.
 # Example: true => "Blog • ~/tabi", false => "~/tabi • Blog"
-invert_title_order = false
+invert_title_order = true
 
 # Full path after the base URL required. So if you were to place it in "static" it would be "/favicon.ico"
 # favicon = ""
 
 # Add an emoji here to use it as favicon.
 # Compatibility: https://caniuse.com/link-icon-svg
-# favicon_emoji = ""
+favicon_emoji = "🤔"
 
 # Path to the fallback image for social media cards (the preview image shown when sharing a link on WhatsApp, LinkedIn…).
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
@@ -250,18 +250,14 @@ full_content_in_feed = true
 # 2. Or, set 'encode_plaintext_email' to true for auto-encoding (only protects on site, not in public repos).
 # email = "bWFpbEBleGFtcGxlLmNvbQ=="  # base64 encoded version of "mail@example.com"
 # Decoding requires ~400 bytes of JavaScript. If JS is disabled, the email won't be displayed.
-encode_plaintext_email = true  # Setting is ignored if email is already encoded.
+encode_plaintext_email = false  # Setting is ignored if email is already encoded.
 
 # Social media links for the footer.
 # Built-in icons: https://github.com/welpo/tabi/tree/main/static/social_icons
 # To use a custom icon, add it to your site's `static/social_icons` directory.
-# socials = [
-#     { name = "github", url = "https://github.com/welpo/", icon = "github" },
-#     { name = "soundcloud", url = "https://soundcloud.com/oskerwyld", icon = "soundcloud" },
-#     { name = "instagram", url = "https://instagram.com/oskerwyld", icon = "instagram" },
-#     { name = "youtube", url = "https://youtube.com/@oskerwyld", icon = "youtube" },
-#     { name = "spotify", url = "https://open.spotify.com/artist/5Hv2bYBhMp1lUHFri06xkE", icon = "spotify" },
-# ]
+socials = [
+    { name = "linkedin", url = "https://www.linkedin.com/in/nielsgouman/", icon = "linkedin" },
+]
 
 # Fediverse profile.
 # Adds metadata to feature the author's profile in Mastodon link previews.
@@ -269,12 +265,12 @@ encode_plaintext_email = true  # Setting is ignored if email is already encoded.
 # fediverse_creator = { handle = "username", domain = "example.com" }
 
 # Extra menu to show on the footer, below socials section.
-# footer_menu = [
-#     {url = "about", name = "about", trailing_slash = true},
-#     {url = "privacy", name = "privacy", trailing_slash = true},
-#     {url = "sitemap.xml", name = "sitemap", trailing_slash = false},
-#     {url = "https://example.com", name = "external link", trailing_slash = true},
-# ]
+footer_menu = [
+    {url = "about", name = "about", trailing_slash = true},
+    {url = "privacy", name = "privacy", trailing_slash = true},
+    {url = "sitemap.xml", name = "sitemap", trailing_slash = false},
+    {url = "https://example.com", name = "external link", trailing_slash = true},
+]
 
 # Enable a copyright notice for the footer, shown between socials and the "Powered by" text.
 # $TITLE will be replaced by the website's title.
@@ -282,7 +278,7 @@ encode_plaintext_email = true  # Setting is ignored if email is already encoded.
 # $AUTHOR will be replaced by the `author` variable.
 # $SEPARATOR will be replaced by the `separator` variable.
 # Markdown is supported (links, emphasis, etc).
-# copyright = "$TITLE © $CURRENT_YEAR $AUTHOR $SEPARATOR Unless otherwise noted, the content in this website is available under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license."
+copyright = "$TITLE © $CURRENT_YEAR $AUTHOR $SEPARATOR Unless otherwise noted, the content in this website is available under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license."
 
 # For multi-language sites, you can set a different copyright for each language.
 # The old way of setting `translated_copyright = true` and using i18n files is deprecated.
