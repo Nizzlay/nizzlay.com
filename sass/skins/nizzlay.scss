@@ -1,0 +1,46 @@
+// This defines theme-specific variables.
+@mixin theme-variables($theme) {
+    --primary-color: #ef7f1a; // Contrast ratio: 4.73:1
+    --text-color: #fff;
+    --background-color: #161d21;
+
+    // All options:
+    // --background-color: #1f1f1f;
+    // --bg-0: #2f2f2f;
+    // --bg-1: #3c3c3c;
+    // --bg-2: #171717;
+    // --bg-3: #535555;
+    // --hover-color: black;
+    // --primary-color: #91e0ee;
+    // --divider-color: #4a4a4a;
+    // --text-color: #D4D4D4;
+    // --text-color-high-contrast: #eceeef;
+    // --meta-color: #B0B0B0;
+    // --codeblock-bg: #19181e;
+    // --codeblock-highlight: #282834;
+
+    // font-family: Arial, Helvetica, sans-serif;
+    --sans-serif-font: Helvetica, Arial, sans-serif;
+    // font-family: "Times New Roman", Times, serif;
+    --serif-font: serif;
+    // font-family: "Lucida Console", "Courier New", monospace;
+    --code-font: monospace;
+}
+
+// Apply light theme variables by default.
+:root {
+    @include theme-variables('light');
+}
+
+// Apply dark theme variables when dark theme is explicitly set.
+[data-theme='dark'] {
+    @include theme-variables('dark');
+}
+
+// Apply dark theme variables when user's system prefers dark mode
+// and the theme is not explicitly set to light.
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+        @include theme-variables('dark');
+    }
+}
