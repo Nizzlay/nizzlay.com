@@ -84,7 +84,7 @@ stylesheets = []
 # Individual pages can override this in the [extra] section using canonical_url.
 # Example: "$base_url/blog/post1" will get the canonical URL "https://example.com/blog/post1".
 # Note: To ensure accuracy in terms of matching content, consider setting 'canonical_url' individually per page.
-# base_canonical_url = "https://example.com"
+base_canonical_url = "https://nizzlay.com"
 
 # Remote repository for your Zola site.
 # Used for `show_remote_changes` and `show_remote_source` (see below).
@@ -310,7 +310,8 @@ enable_csp = true
 # If set to true, the `static/custom_subset.css` file will be loaded first.
 # This avoids a flashing text issue in Firefox.
 # Please see https://welpo.github.io/tabi/blog/custom-font-subset/ to learn how to create this file.
-custom_subset = true
+subset_enabled = false
+custom_subset = false
 
 [extra.analytics]
 # Specify which analytics service you want to use.
