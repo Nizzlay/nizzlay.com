@@ -24,7 +24,8 @@ jobs:
           folder: public
           bucket: ${{ secrets.S3_BUCKET }}
           private: true
+          delete-removed: true
+          cache: 604800
           bucket-region: eu-west-1
-          # Use the next two only if you have created a CloudFront distribution
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: /*
