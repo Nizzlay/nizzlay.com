@@ -25,7 +25,7 @@ jobs:
           bucket: ${{ secrets.S3_BUCKET }}
           private: true
           delete-removed: true
-          cache: 604800
+          cache-control: max-age=604800, no-transform, public
           bucket-region: eu-west-1
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: /*
