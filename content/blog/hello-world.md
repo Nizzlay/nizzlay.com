@@ -1,7 +1,7 @@
 +++
 title = "Hello, World!"
 date = "2025-01-08"
-description = "My first post using the tabi theme."
+description = "Here we are, again. Another version of my personal home on the internet. In English this time. Or at least primarily, I haven’t fully decided yet. On a new domain name, because that made sense to me given the English context."
 
 [taxonomies]
 +++
