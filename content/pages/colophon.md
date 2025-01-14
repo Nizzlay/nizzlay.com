@@ -6,6 +6,8 @@ path = "colophon"
 
 A colophon is usually the last page of a book, giving some meta details about the book, such as the author, publisher, and editor. I quite like seeing a similar behind-the-scenes for websites, and it makes for a decent place to give credit where credit is due. 
 
+<!-- toc -->
+
 ## Code
 The code for this website is fully [open source](https://github.com/Nizzlay/nizzlay.com), and hosted on GitHub.
 
