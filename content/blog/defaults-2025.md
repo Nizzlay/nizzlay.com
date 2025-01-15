@@ -1,13 +1,13 @@
 +++
 title = "Default apps: 2025"
 date = "2025-01-15"
-updated = "2025-01-15"
+updated = "2025-01-15T10:07:00"
 description = "Default apps. Inspired by Hemispheric Views, catalogued by Robb Knight. And now, also listed by me 😄"
 
 [taxonomies]
 +++
 
-Default apps. Inspired by [Hemispheric Views](https://listen.hemisphericviews.com/097), [catalogued](https://defaults.rknight.me/) by [Robb Knight](https://rknight.me/). 
+Default apps. Inspired by [Hemispheric Views](https://listen.hemisphericviews.com/097), and [catalogued](https://defaults.rknight.me/) by [Robb Knight](https://rknight.me/). 
 
 I'm not a fan of trying to stick with the default apps that come with your OS. Your device should be personalised, *optimised*. Use apps that work best, *for you*. Customise apps, create your own automations, make it your own. It's *personal* computing.
 
