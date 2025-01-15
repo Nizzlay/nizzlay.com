@@ -1,6 +1,7 @@
 +++
 title = "Default apps: 2025"
 date = "2025-01-15"
+updated = "2025-01-15"
 description = "Default apps. Inspired by Hemispheric Views, catalogued by Robb Knight. And now, also listed by me 😄"
 
 [taxonomies]
@@ -19,10 +20,11 @@ That being said, let's give it a shot.
 - 📝 **Notes**: Obsidian
 - ✅ **To-Do**: Things3
 - 📷 **Photo Shooting**: iPhone 13 mini
-- 🎨 **Photo Editing**: None 🚫
+- 🎨 **Photo Management**: Photos
 - 📆 **Calendar**: Fantastical
 - 📁 **Cloud File Storage**: iCloud
 - 📖 **RSS**: NetNewsWire
+- ⌨️ **Launcher**: Alfred
 - 🙍🏻‍♂️ **Contacts**: Apple Contacts
 - 🌐 **Browser**: Firefox (Firefox Focus on iOS)
 - 💬 **Chat**: iMessage, WhatsApp, Signal
@@ -38,5 +40,7 @@ That being said, let's give it a shot.
 - 🎵 **Music**: Brain.fm
 - 🎤 **Podcasts**: Overcast
 - 🔐 **Password Management**: Apple Passwords
+- 🌤️ **Weather**: Apple Weather
+- 🔎 **Search**: DuckDuckGo
 - 🧑‍💻 **Code Editor**: VSCodium
 - ✈️ **VPN**: None 🚫
