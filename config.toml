@@ -9,6 +9,7 @@ minify_html = true
 build_search_index = false
 default_language = "en"
 taxonomies = [{name = "tags", feed = true}]
+feed_filenames = ["atom.xml", "rss.xml"]
 
 
 [search]
