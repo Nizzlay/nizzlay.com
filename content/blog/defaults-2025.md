@@ -1,8 +1,8 @@
 +++
 title = "Default apps: 2025"
 date = "2025-01-15"
-updated = "2025-01-15T10:07:00"
-description = "Default apps. Inspired by Hemispheric Views, catalogued by Robb Knight. And now, also listed by me 😄"
+updated = "2025-01-16"
+description = "Default apps. Inspired by Hemispheric Views, and catalogued by Robb Knight. And now, also listed by me 😄"
 
 [taxonomies]
 +++
@@ -24,7 +24,7 @@ That being said, let's give it a shot.
 - 📆 **Calendar**: Fantastical
 - 📁 **Cloud File Storage**: iCloud
 - 📖 **RSS**: NetNewsWire
-- ⌨️ **Launcher**: Alfred
+- 🚀 **Launcher**: Alfred
 - 🙍🏻‍♂️ **Contacts**: Apple Contacts
 - 🌐 **Browser**: Firefox (Firefox Focus on iOS)
 - 💬 **Chat**: iMessage, WhatsApp, Signal
@@ -42,5 +42,6 @@ That being said, let's give it a shot.
 - 🔐 **Password Management**: Apple Passwords
 - 🌤️ **Weather**: Apple Weather
 - 🔎 **Search**: DuckDuckGo
+- 🧭 Maps: Apple Maps
 - 🧑‍💻 **Code Editor**: VSCodium
 - ✈️ **VPN**: None 🚫
