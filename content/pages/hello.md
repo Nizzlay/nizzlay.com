@@ -8,7 +8,7 @@ aliases = [
 ]
 +++
 
-The more we know about each other's communication preferences, the smoother contact will go. So I try to be transparent about how I prefer to be in touch, and why.
+The more we know about each other's communication preferences, the smoother contact will go[^0]. So I try to be transparent about how I prefer to be in touch, and why.
 
 In general:
 - I have a *strong* preference for asynchronous communication.
@@ -55,6 +55,8 @@ Phone, teams, Zoom, whatever, the same applies to all. By far the worst option f
 It baffles me that there are people (and companies) who just call out of the blue, and assume someone would be available to answer. My phone is in "Do not Disturb" mode almost 100% of the time, and I'm very annoyed whenever I have to turn this off[^5]. If you call me out of the blue, I will not answer.
 
 If you really insist on calling, we might be able to make it work, but scheduled calls only. This way we won't interrupt each other, and there's actually the opportunity to prep before the call.
+
+[^0]: Which is also what Alastair Johnston thought, so he decided to list a bunch of these "[Hello pages](https://alastairjohnston.com/introducing-hello-pages/)" in which people (I'm on it too!) share their preferences.
 
 [^1]: Copy/Paste is not that hard, is it?
 
