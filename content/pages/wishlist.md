@@ -25,6 +25,8 @@ If I have, in some way, provided value for you, and you would like to give back,
 - **Robot vacuum**: We've got a Roomba on the ground floor, but it would be nice to have another one so we can have one on each floor.
 - [**Bag-A-Salt**](https://www.bugasalt.eu/): This looks like an amazing toy to deal with flies.
 - [**Water meter**](https://www.homewizard.com/nl/watermeter/): I don't care that much about live tracking the consumption. Mainly to be used so I don't have to go underground into our crawl space once a year to report our consumption to the utilities company.
+- **3D Printer**: I'm fascinated whenever I see what people can make using a 3D printer. Especially for organising stuff, there seems to be an interesting community.
+- **3D Scanner**: To go with a 3D printer, I suppose? So I can measure our spoons and make a drawer tray for it.
 
 ## Workout
 - [**GHAccelerator**](https://www.jaquishbiomedical.com/products/gh-accelerator/): I've got the X3 system for my at-home workouts, this should make it more effective.
