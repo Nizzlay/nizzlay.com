@@ -15,6 +15,7 @@ Let me introduce myself with a bunch of bulletpoints.
 - Will not go with the consensus, especially if that is the main argument.
 - Will find, and take, the other side of the debate (even if that's not my own standpoint), just so discussion can happen.
 - Will inconvenience myself (and others) based on principles and technicalities.
+- Wittiness is my kind of humour, smart, thoughtful, sarcastic.[^2]
 
 ## Lifestyle
 - Works from home, and likes it.
@@ -66,6 +67,7 @@ In random order (otherwise I would have numbered them):
 - Entrepreneurial ambitions
 
 [^1]: I'm not vain about my age, just can't be bothered to remember to update this section all the time.
+[^2]: The opposite also applies. I dislike stupidity in humour (such as clowns acting silly)
 [^3]: Working from home, with an office job. Got to get some movement in my day somehow.  
 [^4]: The hardware is pretty good, but I'll rant about the software. Sadly, the alternatives aren't great.
 [^5]: Get it? Rust. It's a language, one that I like. Also, it's been quite a while since I've actually developed anything.
