@@ -1,0 +1,16 @@
+name: 'IndexNow'
+on:
+  workflow_run:
+    workflows: ["Build and Publish to AWS"]
+    branches: [main]
+    types: 
+      - completed
+jobs:
+  check-and-submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: indexnow-action
+        uses: bojieyang/indexnow-action@v2
+        with:
+          sitemap-location: 'https://nizzlay.com/sitemap.xml'
+          key: ${{ secrets.INDEXNOW_KEY }}
