@@ -22,7 +22,7 @@ jobs:
           key: feed-cache-${{ steps.generate-key.outputs.cache-key }}
           restore-keys: feed-cache-
       - name: GitHub
-        uses: 'rich-howell/MastoRSSbot@v1'
+        uses: 'rich-howell/mastofeedbot@v1'
         with:
           # This is the RSS feed you want to publish
           rss-feed: https://nizzlay.com/atom.xml
