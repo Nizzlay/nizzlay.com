@@ -1,0 +1,34 @@
+name: FeedBot
+on:
+  workflow_run:
+    workflows: ["Build and Publish to AWS"]
+    branches: [main]
+    types: 
+      - completed
+jobs:
+  rss-to-mastodon:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate cache key
+        uses: actions/github-script@v6
+        id: generate-key
+        with:
+          script: |
+            core.setOutput('cache-key', new Date().valueOf())
+      - name: Retrieve cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/MastoRSSbot
+          key: feed-cache-${{ steps.generate-key.outputs.cache-key }}
+          restore-keys: feed-cache-
+      - name: GitHub
+        uses: 'rich-howell/MastoRSSbot@v1'
+        with:
+          # This is the RSS feed you want to publish
+          rss-feed: https://nizzlay.com/atom.xml
+          # This is your instance address
+          api-endpoint: https://indieweb.social
+          # This is the secret you created earlier
+          api-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          # This is a path to the cache file, using the above cache path
+          cache-file: ${{ github.workspace }}/MastoRSSbot/cache.json
