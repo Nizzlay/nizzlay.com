@@ -1,6 +1,6 @@
 base_url = "https://nizzlay.com"
 title = "Nizzlay"
-description = "I'm fascinated by *efficiency*, in a pretty broad sense of the word. You can name it tech, productivity, automation, flip-thinking, whatever… I'll ramble about all of them. And I'm opinionated too, even about stuff that's not efficiency related."
+description = "I'm fascinated by *efficiency*, in a pretty broad sense of the word. You can name it tech, productivity, automation, flip-thinking, friction, whatever… I'll ramble about all of them. And I'm opinionated too, even about stuff that's not efficiency related."
 author = "Nizzlay"
 theme = "tabi"
 generate_feeds = true
