@@ -19,7 +19,7 @@ So I'll stick with recurring projects, but sometimes life happens. And the syste
 
 So what to do if life happens, and I end up with multiple copies of the same project?
 
-I *could* easily just select it, and `CMD(⌘) + Option(⌥) + .` to mark it as cancelled. But being reminded of the past failures is not a great feeling. Dealing with these kinds of emotions is part of [the fight with procrastination](https://www.nytimes.com/2019/03/25/smarter-living/why-you-procrastinate-it-has-nothing-to-do-with-self-control.html), so it's probably a good thing to prevent the guilty feelings (even if the guilt is only on the subconscious level).
+I *could* easily just select it, and <kbd>CMD(⌘) + Option(⌥) + .</kbd> to mark it as cancelled. But being reminded of the past failures is not a great feeling. Dealing with these kinds of emotions is part of [the fight with procrastination](https://www.nytimes.com/2019/03/25/smarter-living/why-you-procrastinate-it-has-nothing-to-do-with-self-control.html), so it's probably a good thing to prevent the guilty feelings (even if the guilt is only on the subconscious level).
 
 Thus, let's automate it.
 
