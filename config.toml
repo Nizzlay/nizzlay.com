@@ -36,7 +36,7 @@ bottom_footnotes = true
 highlight_theme = "css"
 smart_punctuation = true
 external_links_target_blank = true
-
+external_links_class = "external"
 
 [extra]
 # Check out the documentation (or the comments below) to learn how to customise tabi:
