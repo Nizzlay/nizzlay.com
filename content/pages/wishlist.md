@@ -30,7 +30,6 @@ If I have, in some way, provided value for you, and you would like to give back,
 
 ## Workout
 - [**GHAccelerator**](https://www.jaquishbiomedical.com/products/gh-accelerator/): I've got the X3 system for my at-home workouts, this should make it more effective.
-- **Split Squat Resistance Band Belt**: Both [X3 squat belt](https://www.jaquishbiomedical.com/products/x3-squat-belt/), and [vector athletics squat belt](https://www.vectorathletics.fit/products/resistance-band-split-squat-belt) seem to be solid options.
 - **Punchbag**: Water-air style, so that it can be left outdoors. 150 CM or 180 CM, so I can also do low kicks.
 - **Captains of Crush**: Never tried them, but it looks like an interesting challenge.
 - **Kettlebells**: Preferably with a rubber coating, as I mostly use them in the home-office.
