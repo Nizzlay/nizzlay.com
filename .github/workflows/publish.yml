@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: 'true'
       - name: Setup IndexNow # Generate files dynamically to prevent them from being leaked in public repositories.
         run: echo ${{ secrets.INDEXNOW_KEY }} > static/${{ secrets.INDEXNOW_KEY }}.txt
       - uses: taiki-e/install-action@v2
         with:
-          tool: zola@0.19.2
+          tool: zola@0.20.0
       - name: Build
         run: zola build
       - uses: reggionick/s3-deploy@v4
@@ -27,7 +27,7 @@ jobs:
           bucket: ${{ secrets.S3_BUCKET }}
           private: true
           delete-removed: true
-          cache-control: max-age=604800, no-transform, public
+          cache: 604800
           bucket-region: eu-west-1
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: /*
