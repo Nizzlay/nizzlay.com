@@ -419,3 +419,8 @@ p_nickname = "Nizzlay"
 p_locality = "Dordrecht"
 p_country_name = "Netherlands"
 dt_bday = "1988-09-16"
+
+[extra.webmentions]
+enable = true
+# Specify the domain registered with webmention.io.
+domain = "nizzlay.com"
