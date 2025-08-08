@@ -40,6 +40,7 @@ If I have, in some way, provided value for you, and you would like to give back,
 - [**Svalboard keyboard**](https://svalboard.com/): Endgame ergonomics keyboard. Bonus points if you can get it to match my colour scheme.
 - [**BenQ ScreenBar Pro**](https://www.benq.eu/en-eu/lighting/monitor-light/screenbar-pro.html): Better for the eyes. 
 - [**Esington glass**](https://www.esington.com/products/esington-glass-new-edition-stop-time-large): Love this thing for doing pomodoro
+- [**Time Timer**](https://www.timetimer.nl/time-timer-original-2/): As a nice simple pomodoro timer.
 
 ## Random
 - [**Green roof**](https://en.wikipedia.org/wiki/Green_roof): For sure on the dormer. Maybe also on the garage and extension, but not sure if those could support the weight.
