@@ -29,7 +29,6 @@ If I have, in some way, provided value for you, and you would like to give back,
 - **3D Scanner**: To go with a 3D printer, I suppose? So I can measure our spoons and make a drawer tray for it.
 
 ## Workout
-- [**GHAccelerator**](https://www.jaquishbiomedical.com/products/gh-accelerator/): I've got the X3 system for my at-home workouts, this should make it more effective.
 - **Punchbag**: Water-air style, so that it can be left outdoors. 150 CM or 180 CM, so I can also do low kicks.
 - **Captains of Crush**: Never tried them, but it looks like an interesting challenge.
 - **Kettlebells**: Preferably with a rubber coating, as I mostly use them in the home-office.
