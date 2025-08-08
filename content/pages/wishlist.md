@@ -19,6 +19,7 @@ If I have, in some way, provided value for you, and you would like to give back,
 - **Hedge trimmer**: Dealing with cables is half of the time spent with these kinds of things, so definitely battery powered. Makita, as that's what I have all my batteries for.
 - **Plunge saw**: With a track. Would save me a bunch of time fiddling with scrap pieces and clamps. 
 - **Thermal imaging camera**: To find heat leaks, and help improve the thermal efficiency of our house.
+- [**Pro Tech Toolkit**](https://www.ifixit.com/en-eu/products/pro-tech-toolkit): Or similar. Mostly a nice set to deal with the small screws in all these kid's toys.
 
 ## Gadgets
 - **Mopping robot**: Automating the household chores.
@@ -27,6 +28,7 @@ If I have, in some way, provided value for you, and you would like to give back,
 - [**Water meter**](https://www.homewizard.com/nl/watermeter/): I don't care that much about live tracking the consumption. Mainly to be used so I don't have to go underground into our crawl space once a year to report our consumption to the utilities company.
 - **3D Printer**: I'm fascinated whenever I see what people can make using a 3D printer. Especially for organising stuff, there seems to be an interesting community.
 - [**TRMNL**](https://usetrmnl.com/): Statusboards throughout the house.
+- **Casio W-800H**: For the 99% of the time I just need a watch to check the time. Smart watches are only useful for workouts, and I rarely track those.
 
 ## Workout
 - **Punchbag**: Water-air style, so that it can be left outdoors. 150 CM or 180 CM, so I can also do low kicks.
