@@ -26,12 +26,13 @@ If I have, in some way, provided value for you, and you would like to give back,
 - [**Bag-A-Salt**](https://www.bugasalt.eu/): This looks like an amazing toy to deal with flies.
 - [**Water meter**](https://www.homewizard.com/nl/watermeter/): I don't care that much about live tracking the consumption. Mainly to be used so I don't have to go underground into our crawl space once a year to report our consumption to the utilities company.
 - **3D Printer**: I'm fascinated whenever I see what people can make using a 3D printer. Especially for organising stuff, there seems to be an interesting community.
-- **3D Scanner**: To go with a 3D printer, I suppose? So I can measure our spoons and make a drawer tray for it.
+- [**TRMNL**](https://usetrmnl.com/): Statusboards throughout the house.
 
 ## Workout
 - **Punchbag**: Water-air style, so that it can be left outdoors. 150 CM or 180 CM, so I can also do low kicks.
 - **Captains of Crush**: Never tried them, but it looks like an interesting challenge.
-- **Kettlebells**: Preferably with a rubber coating, as I mostly use them in the home-office.
+- **Kettlebells**: Preferably with a rubber coating, as I mostly use them in the home-office. 20kg, 28kg, 32kg.
+- **Vibram FiveFingers**: The only shoes I wear for workouts. I like the V-Train 2.0 and V-Run. Size 41.
 
 ## Office
 - [**Svalboard keyboard**](https://svalboard.com/): Endgame ergonomics keyboard. Bonus points if you can get it to match my colour scheme.
