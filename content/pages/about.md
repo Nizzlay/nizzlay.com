@@ -21,11 +21,11 @@ Let me introduce myself with a bunch of bulletpoints.
 - Works from home, and likes it.
 - Will try to stand, or walk, while working[^3].
 - *Kinda* sportsy, even if in my mind former, *very* sportsy, glory still applies. 
-  - Doing martial arts in the form of cardio boxing
+  - Doing martial arts, currently mostly in the form of cardio boxing
   - Play with rubber bands in the form of [X3](https://www.jaquishbiomedical.com/products/x3-bar/)
   - Throw some kettlebells around
-  - Sometimes I might go for a run
-  - Or even an obstacle course.
+  - Join some classes with crazy fit people when doing Crossfit or Hyrox
+  - Sometimes I might go for a run, or even an obstacle course.
 
 ## Core values
 In random order (otherwise I would have numbered them):
