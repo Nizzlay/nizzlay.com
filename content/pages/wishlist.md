@@ -9,32 +9,35 @@ If I have, in some way, provided value for you, and you would like to give back,
 <!-- toc -->
 
 ## Consumables
-- **Tea**: Green or White. 
-- **Money**: Sure all these other things are nice, but money is infinitely useful, so we can't ignore that. You can donate [via PayPal](https://www.paypal.com/donate/?hosted_button_id=NQFNQE6ADZJHN) or [via Bunq](https://bunq.me/Nizzlay).
+- **Tea**: Green or white. 
+- **Rum**: Caribbean. Not too old. Not "spiced".
+- **Money**: Sure, all these other things are nice, but money is infinitely useful, so we can't ignore that. You can donate [via PayPal](https://www.paypal.com/donate/?hosted_button_id=NQFNQE6ADZJHN) or [via Bunq](https://bunq.me/Nizzlay).
 
 ## Tools
-- **Leaf blower**: Makita. Battery powered, obviously.
+- **Leaf blower**: Makita. Battery-powered, obviously.
 - **Miter saw**: I can build stuff, but I'm not great with hand tools 😅
 - **Table saw**: A job-site kind of thing, on legs, that I can whip out for projects and store in the garage after. I don't have space for a permanent saw in my garage.
-- **Hedge trimmer**: Dealing with cables is half of the time spent with these kinds of things, so definitely battery powered. Makita, as that's what I have all my batteries for.
+- **Hedge trimmer**: Dealing with cables is half of the time spent with these kinds of things, so definitely battery-powered. Makita, as that's what I have all my batteries for.
 - **Plunge saw**: With a track. Would save me a bunch of time fiddling with scrap pieces and clamps. 
 - **Thermal imaging camera**: To find heat leaks, and help improve the thermal efficiency of our house.
-- [**Pro Tech Toolkit**](https://www.ifixit.com/en-eu/products/pro-tech-toolkit): Or similar. Mostly a nice set to deal with the small screws in all these kid's toys.
+- [**Pro Tech Toolkit**](https://www.ifixit.com/en-eu/products/pro-tech-toolkit): Or similar. Mostly a nice set to deal with the small screws in all these kids toys.
 
 ## Gadgets
 - **Mopping robot**: Automating the household chores.
 - **Robot vacuum**: We've got a Roomba on the ground floor, but it would be nice to have another one so we can have one on each floor.
 - [**Bag-A-Salt**](https://www.bugasalt.eu/): This looks like an amazing toy to deal with flies.
-- [**Water meter**](https://www.homewizard.com/nl/watermeter/): I don't care that much about live tracking the consumption. Mainly to be used so I don't have to go underground into our crawl space once a year to report our consumption to the utilities company.
+- [**Water meter**](https://www.homewizard.com/nl/watermeter/): I don't care that much about live tracking the consumption. Mainly to be used, so I don't have to go underground into our crawl space once a year to report our consumption to the utilities company.
 - **3D Printer**: I'm fascinated whenever I see what people can make using a 3D printer. Especially for organising stuff, there seems to be an interesting community.
-- [**TRMNL**](https://usetrmnl.com/): Statusboards throughout the house.
-- **Casio W-800H**: For the 99% of the time I just need a watch to check the time. Smart watches are only useful for workouts, and I rarely track those.
+- [**TRMNL**](https://usetrmnl.com/): Status boards throughout the house.
+- **Casio W-800H**: For the 90% of the time, I just need a watch to check the time. Smartwatches are only useful for workouts, and I rarely track those.
 
 ## Workout
-- **Punchbag**: Water-air style, so that it can be left outdoors. 150 CM or 180 CM, so I can also do low kicks.
+- **Punching bag:** Water-air style, so that it can be left outdoors. 150 CM or 180 CM, so I can also do low kicks.
 - **Captains of Crush**: Never tried them, but it looks like an interesting challenge.
 - **Kettlebells**: Preferably with a rubber coating, as I mostly use them in the home-office. 20kg, 28kg, 32kg.
 - **Vibram FiveFingers**: The only shoes I wear for workouts. I like the V-Train 2.0 and V-Run. Size 41.
+- [**X3 Performance Bands (Gen 2)**](https://www.jaquishbiomedical.com/products/x3-4-performance-band-set/?variant=40244984741970): Rubber bands with the X3 system are my primary at-home workout.
+- [**IsoMax**](https://www.dragondoor.com/products/isomax/): Overcoming isometrics. Building strength, Bruce Lee style.
 
 ## Office
 - [**Svalboard keyboard**](https://svalboard.com/): Endgame ergonomics keyboard. Bonus points if you can get it to match my colour scheme.
