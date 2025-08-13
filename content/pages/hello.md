@@ -43,11 +43,13 @@ Please do stick with text messages, not voice messages[^3].
 For WhatsApp, I couldn't find a way to share without sharing my phone number, which I have regretted doing in the past[^4]. So, sorry, that one's out.
 
 ## Social media
-I left Facebook decades ago. I have left Twitter when it became X. I have never had BluesSky, Threads, Instagram, Pinterest, or whatever else is out there.
+I left Facebook over a decade ago. I have left Twitter when it became X. I have never had BluesSky, Threads, Instagram, Pinterest, or whatever else is out there.
 
-I do still have LinkedIn, but I dislike it as a platform. I mostly use it as an online resume, and maybe a tiny bit as an address book, I do not use it for ongoing communication.
+I do still have [LinkedIn](https://www.linkedin.com/in/nielsgouman/), but I dislike it as a platform. I mostly use it as an online resume, and maybe a tiny bit as an address book, I do not use it for ongoing communication.
 
-In the context of social media, you can reach me on Mastodon as [@nizzlay on indieweb.social](https://indieweb.social/@nizzlay).
+I technically have a Mastodon account as [@nizzlay on indieweb.social](https://indieweb.social/@nizzlay), but it's a glorified RSS feed. It will automatically post, but I don't ever check it. 
+
+So really, if you want to each me, social media probably isn't the way.
 
 ## Phone call
 Phone, teams, Zoom, whatever, the same applies to all. By far the worst option for me. Both of us would need to have time, at the *exact* same time. 
