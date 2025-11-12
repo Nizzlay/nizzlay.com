@@ -9,7 +9,7 @@ If I have, in some way, provided value for you, and you would like to give back,
 <!-- toc -->
 
 ## Consumables
-- **Tea**: Green or white. 
+- **Tea**: Green or white.
 - **Rum**: Caribbean. Not too old. Not "spiced".
 - **Money**: Sure, all these other things are nice, but money is infinitely useful, so we can't ignore that. You can donate [via PayPal](https://www.paypal.com/donate/?hosted_button_id=NQFNQE6ADZJHN) or [via Bunq](https://bunq.me/Nizzlay).
 
@@ -17,8 +17,7 @@ If I have, in some way, provided value for you, and you would like to give back,
 - **Leaf blower**: Makita. Battery-powered, obviously.
 - **Miter saw**: I can build stuff, but I'm not great with hand tools 😅
 - **Table saw**: A job-site kind of thing, on legs, that I can whip out for projects and store in the garage after. I don't have space for a permanent saw in my garage.
-- **Hedge trimmer**: Dealing with cables is half of the time spent with these kinds of things, so definitely battery-powered. Makita, as that's what I have all my batteries for.
-- **Plunge saw**: With a track. Would save me a bunch of time fiddling with scrap pieces and clamps. 
+- **Plunge saw**: With a track. Would save me a bunch of time fiddling with scrap pieces and clamps.
 - **Thermal imaging camera**: To find heat leaks, and help improve the thermal efficiency of our house.
 - [**Pro Tech Toolkit**](https://www.ifixit.com/en-eu/products/pro-tech-toolkit): Or similar. Mostly a nice set to deal with the small screws in all these kids toys.
 
@@ -37,13 +36,10 @@ If I have, in some way, provided value for you, and you would like to give back,
 - **Kettlebells**: Preferably with a rubber coating, as I mostly use them in the home-office. 20kg, 28kg, 32kg.
 - **Vibram FiveFingers**: The only shoes I wear for workouts. I like the V-Train 2.0 and V-Run. Size 41.
 - [**X3 Performance Bands (Gen 2)**](https://www.jaquishbiomedical.com/products/x3-4-performance-band-set/?variant=40244984741970): Rubber bands with the X3 system are my primary at-home workout.
-- [**IsoMax**](https://www.dragondoor.com/products/isomax/): Overcoming isometrics. Building strength, Bruce Lee style.
 
 ## Office
 - [**Svalboard keyboard**](https://svalboard.com/): Endgame ergonomics keyboard. Bonus points if you can get it to match my colour scheme.
-- [**BenQ ScreenBar Pro**](https://www.benq.eu/en-eu/lighting/monitor-light/screenbar-pro.html): Better for the eyes. 
-- [**Esington glass**](https://www.esington.com/products/esington-glass-new-edition-stop-time-large): Love this thing for doing pomodoro
-- [**Time Timer**](https://www.timetimer.nl/time-timer-original-2/): As a nice simple pomodoro timer.
+- [**BenQ ScreenBar Pro**](https://www.benq.eu/en-eu/lighting/monitor-light/screenbar-pro.html): Better for the eyes.
 
 ## Random
 - [**Green roof**](https://en.wikipedia.org/wiki/Green_roof): For sure on the dormer. Maybe also on the garage and extension, but not sure if those could support the weight.
