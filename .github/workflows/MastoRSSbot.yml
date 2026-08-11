@@ -5,6 +5,8 @@ on:
     branches: [main]
     types: 
       - completed
+permissions:
+  contents: read
 jobs:
   rss-to-mastodon:
     runs-on: ubuntu-latest
