@@ -20,16 +20,40 @@ jobs:
           tool: zola@0.23.6
       - name: Build
         run: zola build
-      - uses: reggionick/s3-deploy@v4
+      # Deployed with the AWS CLI (preinstalled on the runner) instead of a
+      # third-party action, so there is no Node runtime to be deprecated.
+      - name: Deploy to S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        with:
-          folder: public
-          bucket: ${{ secrets.S3_BUCKET }}
-          private: true
-          delete-removed: true
-          cache: 604800
-          bucket-region: eu-west-1
-          dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-          invalidation: /*
+          AWS_REGION: eu-west-1
+          BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          # Assets are either hash-busted by Zola (CSS/JS) or get a new filename when
+          # replaced, so they can be cached for a year. Everything else (HTML, feeds,
+          # robots.txt, the feed stylesheet…) keeps the same URL across deploys and
+          # gets a week, matched by whatever the first pass did not claim.
+          ASSETS=(js css svg ttf woff woff2 pdf png jpg jpeg JPG JPEG gif ico webp avif)
+          include=() exclude=()
+          for ext in "${ASSETS[@]}"; do
+            include+=(--include "*.$ext")
+            exclude+=(--exclude "*.$ext")
+          done
+
+          aws s3 sync public/ "s3://$BUCKET" --delete --no-progress \
+            --exclude '*' "${include[@]}" \
+            --cache-control 'max-age=31536000, public'
+
+          # --exclude keeps macOS junk out of the bucket if public/ was built locally.
+          aws s3 sync public/ "s3://$BUCKET" --delete --no-progress \
+            "${exclude[@]}" --exclude '*.DS_Store' \
+            --cache-control 'max-age=604800, public'
+      - name: Invalidate CloudFront
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-west-1
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"
