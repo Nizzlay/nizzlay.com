@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: 'true'
       - name: Setup IndexNow # Generate files dynamically to prevent them from being leaked in public repositories.
         run: echo ${{ secrets.INDEXNOW_KEY }} > static/${{ secrets.INDEXNOW_KEY }}.txt
       - uses: taiki-e/install-action@v2
         with:
-          tool: zola@0.20.0
+          tool: zola@0.23.6
       - name: Build
         run: zola build
       - uses: reggionick/s3-deploy@v4
