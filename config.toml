@@ -30,24 +30,21 @@ index_format = "elasticlunr_json"
 
 
 [markdown]
-highlight_code = true
 bottom_footnotes = true
-# To use a Zola built-in theme, CSP needs to allow unsafe-inline for style-src.
-highlight_theme = "css"
 smart_punctuation = true
 external_links_target_blank = true
 external_links_class = "external"
 
+# tabi requires class-based highlighting. Zola generates giallo.css from the theme;
+# catppuccin-frappe matches the syntax colours tabi used to bundle itself.
+[markdown.highlighting]
+theme = "catppuccin-frappe"
+style = "class"
+error_on_missing_language = true
+
 [extra]
 # Check out the documentation (or the comments below) to learn how to customise tabi:
 # https://welpo.github.io/tabi/blog/mastering-tabi-settings/
-
-# Search index format.
-# For Zola 0.17.X users only.
-# This MUST MATCH the setting in [search].index_format.
-# Example: If [search].index_format is "elasticlunr_javascript", set:
-# index_format = "elasticlunr_javascript"
-# index_format = ""
 
 # Use sans-serif font everywhere.
 # By default, the serif font is only used in articles.
@@ -107,10 +104,6 @@ show_remote_source = true  # Defaults to true.
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
 copy_button = false
 
-# Loads the necessary JavaScript (~400 bytes) to use the "Show source or path" shortcode: https://welpo.github.io/tabi/blog/shortcodes/#show-source-or-path
-# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-add_src_to_code_block = false
-
 # Force left-to-right (LTR) direction for code blocks.
 # Set to false to allow code to follow the document's natural direction.
 # Can be set at page or section levels. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
@@ -143,12 +136,6 @@ post_listing_date = "both"
 # It has only effect if the section uses indexes metadata (which is only the case for series as of now).
 # Can be set at section levels, following the hierarchy: section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
 post_listing_index_reversed = false  # Defaults to false.
-
-# DEPRECATED!
-# Use Zola's built-in `bottom_footnotes = true` in the [markdown] section instead. (Available since v0.19.0)
-# Adds backlinks to footnotes (loads ~500 bytes of JavaScripts).
-# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-footnote_backlinks = false
 
 # Enable KaTeX for all posts.
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
@@ -187,13 +174,18 @@ quick_navigation_buttons = true
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
 # toc = false
 
+# Date formats use UTS-35 patterns: https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
 # Date format used when listing posts (main page, /blog section, tag posts list…)
-# Default is "6th July 2049" in English and "%d %B %Y" in other languages.
-long_date_format = "%A %d %B %Y"
+# Default is "6th July 2049" in English and "dd MMMM y" in other languages.
+long_date_format = "EEEE dd MMMM y"
 
 # Date format used for blog posts.
-# Default is "6th July 2049" in English and "%-d %B %Y" in other languages.
-short_date_format = "%d-%m-%Y"
+# Default is "6th July 2049" in English and "d MMMM y" in other languages.
+short_date_format = "dd-MM-y"
+
+# Date format used in the archive page (/blog).
+# Default is "06 July" in English and "dd MMM" in other languages.
+archive_date_format = "dd-MM-y"
 
 # Custom separator used in title tag and posts metadata (between date, time to read, and tags).
 separator = "•"
@@ -313,11 +305,14 @@ allowed_domains = [
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
 enable_csp = true
 
-# Custom subset of characters for the header.
-# If set to true, the `static/custom_subset.css` file will be loaded first.
-# This avoids a flashing text issue in Firefox.
-# Please see https://welpo.github.io/tabi/blog/custom-font-subset/ to learn how to create this file.
-subset_enabled = false
+# Font subsetting configuration.
+# Avoids a flashing text issue in Firefox when using custom fonts.
+# See: https://welpo.github.io/tabi/blog/custom-font-subset/
+# Enable or disable font subsetting completely, both built-in and custom subsets.
+enable_subset = false
+# Use a custom subset of characters for the header.
+# If true, tabi will load the `static/custom_subset.css` file.
+# If false, tabi will use the default language-specific subset (English or Spanish).
 custom_subset = false
 
 [extra.analytics]
