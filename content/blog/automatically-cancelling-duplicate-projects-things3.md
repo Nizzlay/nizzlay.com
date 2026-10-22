@@ -33,7 +33,7 @@ In Python there's a pretty good library for reading Things3 data. And even thoug
 
 For the script to work you'll need to install the unofficial [Things Python API](https://github.com/thingsapi/things.py/), and make sure you enable Things URLs. Click *Manage*, to grab your token.
 
-![Enabling Things URLs in Things3 settings](/enable-things-urls.png)
+{{< image src="/enable-things-urls.png" alt="Enabling Things URLs in Things3 settings" />}}
 
 Then take this code, replace the `THINGS-TOKEN-HERE` with your actual token, and save it somewhere:
 
