@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Keep the `updated` field of committed posts in sync with their last modified
+# date, so tabi's "Last updated" line stays accurate without editing it by hand.
+#
+# Adapted from https://osc.garden/blog/zola-date-git-hook/ with two changes:
+#   - it writes dates in this repo's front matter style (date = "YYYY-MM-DD")
+#   - it avoids bash 4 features, so it also runs under the bash macOS ships
+#
+# Enabled via `git config core.hooksPath .githooks`.
+
+set -uo pipefail
+
+error_exit() {
+    echo "pre-commit: $1" >&2
+    exit "${2:-1}"
+}
+
+# Modified (not newly added) Markdown files, ignoring section indexes.
+staged=$(git diff --cached --name-only --diff-filter=M -- '*.md' ':(exclude)*_index.md')
+[ -n "$staged" ] || exit 0
+
+while IFS= read -r file; do
+    [ -n "$file" ] && [ -f "$file" ] || continue
+
+    # Only posts carry a `date`; pages without one are left alone.
+    date_line=$(grep -m 1 '^date = ' "$file") || continue
+
+    unquote() { sed -e 's/^[a-z]* = //' -e 's/[[:space:]]*$//' -e 's/^"//' -e 's/"$//'; }
+    published=$(printf '%s\n' "$date_line" | unquote)
+    last_modified=$(date -r "$file" +'%Y-%m-%d')
+
+    # A post edited on the day it was published needs no `updated` field.
+    [ "$published" = "$last_modified" ] && continue
+
+    updated_line=$(grep -m 1 '^updated = ' "$file")
+    if [ -n "$updated_line" ]; then
+        # Already correct: leave the file (and the index) untouched.
+        [ "$(printf '%s\n' "$updated_line" | unquote)" = "$last_modified" ] && continue
+    fi
+
+    # Match the quoting style of the file's own `date` field.
+    case "$date_line" in
+        *'"'*) new_value="\"$last_modified\"" ;;
+        *)     new_value="$last_modified" ;;
+    esac
+
+    if [ -n "$updated_line" ]; then
+        # Replace the existing field.
+        awk -v v="$new_value" '
+            BEGIN { done = 0 }
+            /^updated = / && !done { print "updated = " v; done = 1; next }
+            { print }
+        ' "$file" > "$file.tmp" || error_exit "failed to rewrite $file"
+    else
+        # Add it directly below `date`.
+        awk -v v="$new_value" '
+            BEGIN { done = 0 }
+            { print }
+            /^date = / && !done { print "updated = " v; done = 1 }
+        ' "$file" > "$file.tmp" || error_exit "failed to rewrite $file"
+    fi
+
+    mv "$file.tmp" "$file" || error_exit "failed to replace $file"
+    git add -- "$file"
+    echo "pre-commit: updated = $last_modified in $file"
+done <<< "$staged"
