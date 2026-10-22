@@ -1,0 +1,38 @@
+{#- Serves an image as <picture>: AVIF and WebP versions when they exist next to
+    it (foo.avif, foo.webp next to foo.png), with the original as the fallback.
+
+    Browsers use the first source they support, so sources must be listed
+    smallest first. Templates can't read file sizes; instead the pre-commit
+    hook only keeps a WebP smaller than the original and an AVIF smaller than
+    both, which makes the fixed AVIF, WebP, original order smallest first.
+
+    The hook also rewrites Markdown images to this component once versions
+    exist, so posts can be written in plain Markdown:
+    {{< image src="/foo.png" alt="Description" />}} -#}
+{% component image(src: string, @page = {}, alt = "", title = "", lazy_loading = true) %}
+{#- Resolve the path like tabi's image components: colocated first, then static -#}
+{%- set colocated_path = "" -%}
+{%- if page and page.relative_path -%}
+    {%- set page_dirs = (page.relative_path | split(pat="/"))[:-1] -%}
+    {%- if page_dirs | length > 0 -%}
+        {%- set colocated_path = page_dirs | join(sep="/") ~ "/" -%}
+    {%- endif -%}
+{%- endif -%}
+{%- set path = colocated_path ~ src -%}
+{%- set meta = get_image_metadata(path=path, allow_missing=true) -%}
+{%- if not meta -%}
+    {%- set path = src -%}
+    {%- set meta = get_image_metadata(path=path) -%}
+{%- endif -%}
+{%- set stem = (path | split(pat="."))[:-1] | join(sep=".") -%}
+
+<picture>
+{%- for format in ["avif", "webp"] -%}
+    {%- set variant = stem ~ "." ~ format -%}
+    {%- if variant != path and get_image_metadata(path=variant, allow_missing=true) -%}
+        <source type="image/{{ format }}" srcset="{{ get_url(path=variant, cachebust=true) }}">
+    {%- endif -%}
+{%- endfor -%}
+<img src="{{ get_url(path=path, cachebust=true) }}" alt="{{ alt | escape }}"{% if title %} title="{{ title | escape }}"{% endif %} width="{{ meta.width }}" height="{{ meta.height }}"{% if lazy_loading %} loading="lazy"{% endif %} decoding="async">
+</picture>
+{% endcomponent image %}

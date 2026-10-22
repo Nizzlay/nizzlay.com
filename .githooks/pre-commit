@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # 1. Compress committed PNG, JPEG, SVG and WebP images (lossy, quality 80),
-#    using the tools bundled with ImageOptim.app, plus cwebp for WebP.
+#    using the tools bundled with ImageOptim.app, plus cwebp for WebP. PNGs and
+#    JPEGs also get AVIF/WebP versions, kept only when smaller (see
+#    templates/components/image.html).
 # 2. Keep the `updated` field of committed posts in sync with their last
 #    modified date, so tabi's "Last updated" line stays accurate without
 #    editing it by hand.
@@ -21,6 +23,11 @@ error_exit() {
     exit "${2:-1}"
 }
 
+# Posts edited in this commit (modified, not newly added; no section indexes),
+# collected before the image steps below rewrite any posts, so a post that only
+# had its images converted doesn't get a new `updated` date.
+staged=$(git diff --cached --name-only --diff-filter=M -- '*.md' ':(exclude)*_index.md')
+
 # --- Images -------------------------------------------------------------------
 
 imageoptim_bin=/Applications/ImageOptim.app/Contents/Frameworks/ImageOptimGPL.framework/Versions/A/Resources
@@ -28,6 +35,14 @@ imageoptim_bin=/Applications/ImageOptim.app/Contents/Frameworks/ImageOptimGPL.fr
 # ImageOptim has no WebP support, so WebP goes through cwebp from libwebp
 # (`brew install webp`). Git GUIs may not have Homebrew on the PATH.
 cwebp_bin=$(command -v cwebp || echo /opt/homebrew/bin/cwebp)
+
+# AVIF versions are made with avifenc from libavif (`brew install libavif`).
+avifenc_bin=$(command -v avifenc || echo /opt/homebrew/bin/avifenc)
+
+# A WebP/AVIF version is only kept if it saves at least this many bytes over
+# the next file in line. Each version adds a <source> line (~110 bytes) to
+# the HTML and a file to the repo, so tiny savings aren't worth it.
+min_saving=512
 
 # Keep $2 in place of $1 if it exists and is smaller; otherwise discard it.
 keep_if_smaller() {
@@ -38,14 +53,103 @@ keep_if_smaller() {
     fi
 }
 
+# Print the PNG or JPEG that the .avif/.webp $1 is a generated version of, if
+# there is one. A same-named PNG or JPEG is what marks a file as generated.
+original_of() {
+    local stem="${1%.*}" ext
+    for ext in png PNG jpg JPG jpeg JPEG; do
+        if [ -f "$stem.$ext" ]; then
+            echo "$stem.$ext"
+            return 0
+        fi
+    done
+    return 1
+}
+
+# PNGs and JPEGs get WebP and AVIF versions next to them (foo.png -> foo.webp,
+# foo.avif) in three steps, so every file is compressed lossily only once:
+#   1. encode_variants: encode the versions from the untouched original
+#   2. the original is compressed as usual
+#   3. keep_variants: keep only the versions that are smaller
+# Temporary versions of the image being processed; removed if the hook exits
+# early.
+current_stem=""
+trap 'if [ -n "$current_stem" ]; then rm -f -- "$current_stem.tmp.webp" "$current_stem.tmp.avif"; fi' EXIT
+
+# Step 1: write foo.tmp.webp and foo.tmp.avif for the PNG or JPEG $1.
+encode_variants() {
+    local file="$1" stem="${1%.*}"
+    if [ -x "$cwebp_bin" ]; then
+        "$cwebp_bin" -quiet -q 80 -m 6 -metadata none "$file" -o "$stem.tmp.webp" 2>/dev/null
+    else
+        echo "pre-commit: cwebp not found, skipping WebP for $file" >&2
+    fi
+    if [ -x "$avifenc_bin" ]; then
+        "$avifenc_bin" -q 80 -s 4 --ignore-exif --ignore-xmp \
+            "$file" "$stem.tmp.avif" >/dev/null 2>&1
+    else
+        echo "pre-commit: avifenc not found, skipping AVIF for $file" >&2
+    fi
+}
+
+# Step 3: keep WebP only if it's at least $min_saving bytes smaller than the
+# compressed original $1, and AVIF only if it's that much smaller than both.
+# Browsers take the first format they support, and
+# the `image` component lists AVIF, then WebP, then the original, so this keeps
+# that order smallest first. (Templates can't read file sizes, so the order
+# has to be guaranteed here.) A version that isn't kept is removed, so a
+# stale copy never outlives a change.
+keep_variants() {
+    local file="$1" stem="${1%.*}" ext variant tmp
+    local limit=$(wc -c < "$1")
+    for ext in webp avif; do
+        variant="$stem.$ext"
+        tmp="$stem.tmp.$ext"
+        if [ -s "$tmp" ] && [ $((limit - $(wc -c < "$tmp"))) -ge "$min_saving" ]; then
+            mv -- "$tmp" "$variant"
+            limit=$(wc -c < "$variant")
+            git add -- "$variant"
+            echo "pre-commit: created $variant ($(echo $limit) bytes)"
+        else
+            rm -f -- "$tmp"
+            if [ -e "$variant" ]; then
+                git rm -q --cached --ignore-unmatch -- "$variant"
+                rm -f -- "$variant"
+                echo "pre-commit: removed $variant (saves less than $min_saving bytes)"
+            fi
+        fi
+    done
+}
+
+# Generated versions of deleted PNGs and JPEGs go with them. --no-renames makes
+# a renamed image show up as a deletion plus an addition.
+deleted=$(git diff --cached --name-only --no-renames --diff-filter=D -- \
+    ':(icase)*.png' ':(icase)*.jpg' ':(icase)*.jpeg')
+
+while IFS= read -r file; do
+    [ -n "$file" ] || continue
+    for variant in "${file%.*}.avif" "${file%.*}.webp"; do
+        if [ -e "$variant" ] && ! original_of "$variant" >/dev/null; then
+            git rm -q --ignore-unmatch -- "$variant"
+            rm -f -- "$variant"
+            echo "pre-commit: removed $variant ($file was deleted)"
+        fi
+    done
+done <<< "$deleted"
+
 # Added or modified images. Already-compressed files come out (nearly) unchanged,
 # so re-running on them is harmless.
-images=$(git diff --cached --name-only --diff-filter=AM -- \
+images=$(git diff --cached --name-only --no-renames --diff-filter=AM -- \
     ':(icase)*.png' ':(icase)*.jpg' ':(icase)*.jpeg' ':(icase)*.svg' ':(icase)*.webp')
 
 while IFS= read -r file; do
     [ -n "$file" ] && [ -f "$file" ] || continue
     before=$(wc -c < "$file" | tr -d ' ')
+
+    # Generated WebP versions are (re)made from their original below.
+    case "$file" in
+        *.[Ww][Ee][Bb][Pp]) original_of "$file" >/dev/null && continue ;;
+    esac
 
     case "$file" in
         *.[Ww][Ee][Bb][Pp]) tool="$cwebp_bin" ;;
@@ -55,6 +159,13 @@ while IFS= read -r file; do
         echo "pre-commit: $(basename "$tool") not found, committing $file uncompressed" >&2
         continue
     fi
+
+    case "$file" in
+        *.[Pp][Nn][Gg]|*.[Jj][Pp][Gg]|*.[Jj][Pp][Ee][Gg])
+            current_stem="${file%.*}"
+            encode_variants "$file"
+            ;;
+    esac
 
     case "$file" in
         *.[Pp][Nn][Gg])
@@ -92,12 +203,67 @@ while IFS= read -r file; do
         git add -- "$file"
         echo "pre-commit: compressed $file ($before -> $after bytes)"
     fi
+
+    case "$file" in
+        *.[Pp][Nn][Gg]|*.[Jj][Pp][Gg]|*.[Jj][Pp][Ee][Gg])
+            keep_variants "$file"
+            current_stem=""
+            ;;
+    esac
 done <<< "$images"
+
+# --- Image markup -------------------------------------------------------------
+
+# Posts are written in plain Markdown. Once an image has AVIF/WebP versions,
+# rewrite its Markdown image to the `image` component, which serves them:
+#   ![alt](/foo.png "title")  ->  {{< image src="/foo.png" alt="alt" title="title" />}}
+# Images inside fenced code blocks are left alone, as are images whose alt or
+# title contains both kinds of quote (they can't be passed to the component).
+convert_images() {
+    perl -pe '
+        sub attr {
+            my ($name, $value) = @_;
+            return "" unless length $value;
+            return qq( $name="$value") unless $value =~ /"/;
+            return qq( $name=\x27$value\x27) unless $value =~ /\x27/;
+            die "quotes\n";
+        }
+        sub component {
+            my ($alt, $src, $title) = @_;
+            (my $dir = $ARGV) =~ s{[^/]*$}{};
+            my $path = $src =~ m{^/} ? "static$src" : "$dir$src";
+            (my $stem = $path) =~ s/\.[^.\/]+$//;
+            return undef unless -e "$stem.avif" || -e "$stem.webp";
+            my $attrs = eval { attr("alt", $alt) . attr("title", $title) };
+            return undef unless defined $attrs;
+            return qq({{< image src="$src"$attrs />}});
+        }
+        if (/^\s*(```|~~~)/) { $fence = !$fence; next }
+        next if $fence;
+        s{!\[([^\]]*)\]\(\s*([^\s)]+\.(?:png|jpe?g))(?:\s+"([^"]*)")?\s*\)}
+         {my $md = $&; component($1, $2, $3) // $md}gie;
+    ' "$1"
+}
+
+while IFS= read -r post; do
+    [ -f "$post" ] || continue
+    convert_images "$post" > "$post.tmp" || error_exit "failed to convert images in $post"
+    if cmp -s "$post" "$post.tmp"; then
+        rm -f -- "$post.tmp"
+    elif ! git diff --quiet -- "$post"; then
+        # Staging the rewrite would also stage edits that aren't part of this
+        # commit; it's picked up on a later commit instead.
+        rm -f -- "$post.tmp"
+        echo "pre-commit: $post has unstaged changes, not converting its images yet" >&2
+    else
+        mv -- "$post.tmp" "$post" || error_exit "failed to replace $post"
+        git add -- "$post"
+        echo "pre-commit: switched images in $post to the image component"
+    fi
+done <<< "$(git ls-files -- 'content/*.md')"
 
 # --- Post dates ---------------------------------------------------------------
 
-# Modified (not newly added) Markdown files, ignoring section indexes.
-staged=$(git diff --cached --name-only --diff-filter=M -- '*.md' ':(exclude)*_index.md')
 [ -n "$staged" ] || exit 0
 
 while IFS= read -r file; do
