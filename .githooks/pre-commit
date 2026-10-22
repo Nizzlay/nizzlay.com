@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
-# Keep the `updated` field of committed posts in sync with their last modified
-# date, so tabi's "Last updated" line stays accurate without editing it by hand.
+# 1. Compress committed PNG, JPEG, SVG and WebP images (lossy, quality 80),
+#    using the tools bundled with ImageOptim.app, plus cwebp for WebP.
+# 2. Keep the `updated` field of committed posts in sync with their last
+#    modified date, so tabi's "Last updated" line stays accurate without
+#    editing it by hand.
 #
-# Adapted from https://osc.garden/blog/zola-date-git-hook/ with two changes:
+# Adapted from https://osc.garden/blog/zola-date-git-hook/ with these changes:
+#   - images go through ImageOptim's pngquant/oxipng/jpegoptim instead of
+#     oxipng/optipng from the PATH (the ImageOptim app itself never quits when
+#     run from the command line, so it can't be used directly)
 #   - it writes dates in this repo's front matter style (date = "YYYY-MM-DD")
 #   - it avoids bash 4 features, so it also runs under the bash macOS ships
 #
@@ -14,6 +20,81 @@ error_exit() {
     echo "pre-commit: $1" >&2
     exit "${2:-1}"
 }
+
+# --- Images -------------------------------------------------------------------
+
+imageoptim_bin=/Applications/ImageOptim.app/Contents/Frameworks/ImageOptimGPL.framework/Versions/A/Resources
+
+# ImageOptim has no WebP support, so WebP goes through cwebp from libwebp
+# (`brew install webp`). Git GUIs may not have Homebrew on the PATH.
+cwebp_bin=$(command -v cwebp || echo /opt/homebrew/bin/cwebp)
+
+# Keep $2 in place of $1 if it exists and is smaller; otherwise discard it.
+keep_if_smaller() {
+    if [ -s "$2" ] && [ "$(wc -c < "$2")" -lt "$(wc -c < "$1")" ]; then
+        mv -- "$2" "$1"
+    else
+        rm -f -- "$2"
+    fi
+}
+
+# Added or modified images. Already-compressed files come out (nearly) unchanged,
+# so re-running on them is harmless.
+images=$(git diff --cached --name-only --diff-filter=AM -- \
+    ':(icase)*.png' ':(icase)*.jpg' ':(icase)*.jpeg' ':(icase)*.svg' ':(icase)*.webp')
+
+while IFS= read -r file; do
+    [ -n "$file" ] && [ -f "$file" ] || continue
+    before=$(wc -c < "$file" | tr -d ' ')
+
+    case "$file" in
+        *.[Ww][Ee][Bb][Pp]) tool="$cwebp_bin" ;;
+        *)                  tool="$imageoptim_bin/pngquant" ;;
+    esac
+    if [ ! -x "$tool" ]; then
+        echo "pre-commit: $(basename "$tool") not found, committing $file uncompressed" >&2
+        continue
+    fi
+
+    case "$file" in
+        *.[Pp][Nn][Gg])
+            # Exit 98/99 mean pngquant kept the original (no gain, or
+            # quality would drop below 65); oxipng still runs losslessly.
+            "$imageoptim_bin/pngquant" --quality=65-80 --skip-if-larger \
+                --strip --force --ext .png -- "$file"
+            case $? in 0|98|99) ;; *) error_exit "pngquant failed on $file" ;; esac
+            "$imageoptim_bin/oxipng" -q -o 4 --strip safe -- "$file" \
+                || error_exit "oxipng failed on $file"
+            ;;
+        *.[Ss][Vv][Gg])
+            # svgcleaner exits 0 even on errors, and writes nothing when the
+            # result would be bigger, so only a smaller output file is kept.
+            # Its output name must end in .svg.
+            "$imageoptim_bin/svgcleaner" --quiet "$file" "$file.tmp.svg" 2>/dev/null
+            keep_if_smaller "$file" "$file.tmp.svg"
+            ;;
+        *.[Ww][Ee][Bb][Pp])
+            # Re-encodes lossy; animated WebP isn't supported and is left as is.
+            if ! "$cwebp_bin" -quiet -q 80 -m 6 -metadata none "$file" -o "$file.tmp" 2>/dev/null; then
+                echo "pre-commit: cwebp could not process $file, committing it uncompressed" >&2
+            fi
+            keep_if_smaller "$file" "$file.tmp"
+            ;;
+        *)
+            "$imageoptim_bin/jpegoptim" -q --max=80 --strip-all \
+                --all-progressive -- "$file" \
+                || error_exit "jpegoptim failed on $file"
+            ;;
+    esac
+
+    after=$(wc -c < "$file" | tr -d ' ')
+    if [ "$after" -lt "$before" ]; then
+        git add -- "$file"
+        echo "pre-commit: compressed $file ($before -> $after bytes)"
+    fi
+done <<< "$images"
+
+# --- Post dates ---------------------------------------------------------------
 
 # Modified (not newly added) Markdown files, ignoring section indexes.
 staged=$(git diff --cached --name-only --diff-filter=M -- '*.md' ':(exclude)*_index.md')
