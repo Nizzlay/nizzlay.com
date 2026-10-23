@@ -73,7 +73,9 @@ Refer to the [Zola documentation](https://www.getzola.org/documentation/deployme
 
 The publish workflow uploads brotli (quality 11) and zopfli gzip copies of every
 text file to `_br/` and `_gz/` in the bucket, under the original paths and with
-`Content-Encoding` set. The CloudFront Function in
+`Content-Encoding` set. A file that compression doesn't make smaller (a few
+tiny ones) gets a copy of the original there instead, without
+`Content-Encoding`. The CloudFront Function in
 [`cloudfront/precompressed.js`](cloudfront/precompressed.js) serves them,
 based on the viewer's `Accept-Encoding`. It's attached to the distribution's
 default behaviour as a viewer request function, and set up by hand:

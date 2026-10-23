@@ -34,14 +34,27 @@ jobs:
 
           cd public
           find . -type f \( "${match[@]:1}" \) -printf '%P\0' > ../compressible
+          # Tiny files can come out bigger when compressed. Their copy then holds
+          # the original bytes instead, listed in ../uncompressed-br or -gz so the
+          # deploy uploads it without Content-Encoding. The function still finds
+          # a copy at the expected path; it's just not compressed.
+          : > ../uncompressed-br; : > ../uncompressed-gz
           xargs -0 -P "$(nproc)" -n 1 sh -c '
             mkdir -p "_br/$(dirname "$1")" "_gz/$(dirname "$1")"
             brotli --quality=11 --lgwin=24 --stdout -- "$1" > "_br/$1"
             zopfli -c -- "$1" > "_gz/$1"
+            for enc in br gz; do
+              if [ "$(wc -c < "_$enc/$1")" -ge "$(wc -c < "$1")" ]; then
+                cp -- "$1" "_$enc/$1"
+                echo "$1" >> "../uncompressed-$enc"
+              fi
+            done
           ' sh < ../compressible
           echo "Compressed $(tr -cd '\0' < ../compressible | wc -c) files" \
             "($(xargs -0 du -ck < ../compressible | tail -1 | cut -f1) KB):" \
             "brotli $(du -sk _br | cut -f1) KB, gzip $(du -sk _gz | cut -f1) KB"
+          echo "Kept uncompressed (not smaller):" \
+            "brotli $(wc -l < ../uncompressed-br), gzip $(wc -l < ../uncompressed-gz)"
       # Deployed with the AWS CLI (preinstalled on the runner) instead of a
       # third-party action, so there is no Node runtime to be deprecated.
       - name: Deploy to S3
@@ -78,9 +91,22 @@ jobs:
 
           # Compressed copies first, so the function never points at a copy
           # that isn't there yet. Excluded paths are also kept out of --delete,
-          # so syncing the originals leaves _br/ and _gz/ alone.
-          sync public/_br/ "s3://$BUCKET/_br" --content-encoding br
-          sync public/_gz/ "s3://$BUCKET/_gz" --content-encoding gzip
+          # so syncing the originals leaves _br/ and _gz/ alone, and syncing the
+          # copies leaves the uncompressed ones (see Pre-compress) alone.
+          for enc in br gz; do
+            if [ "$enc" = br ]; then encoding=br; else encoding=gzip; fi
+            skip=()
+            while IFS= read -r f; do skip+=(--exclude "$f"); done < "uncompressed-$enc"
+            sync "public/_$enc/" "s3://$BUCKET/_$enc" --content-encoding "$encoding" "${skip[@]}"
+
+            while IFS= read -r f; do
+              cache='max-age=604800, public'
+              for ext in "${ASSETS[@]}"; do
+                if [[ "$f" == *."$ext" ]]; then cache='max-age=31536000, public'; fi
+              done
+              aws s3 cp "public/_$enc/$f" "s3://$BUCKET/_$enc/$f" --no-progress --cache-control "$cache"
+            done < "uncompressed-$enc"
+          done
           sync public/ "s3://$BUCKET" --exclude '_br/*' --exclude '_gz/*'
       - name: Invalidate CloudFront
         env:
