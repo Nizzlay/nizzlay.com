@@ -19,6 +19,10 @@ OVERRIDES=(
     's|<html lang="{{ lang }}"|<html lang="{{ page?.extra?.lang \| default(value=lang) }}"|'
     'atom.xml'
     's|<entry xml:lang="{{ page.lang }}">|<entry xml:lang="{{ page.extra.lang \| default(value=page.lang) }}">|'
+    # The h-card links the same profile picture with a cache-busting hash;
+    # without one here too, the home page downloads it twice.
+    'partials/home_banner.html'
+    's|get_url(path=header.img, trailing_slash=false)|get_url(path=header.img, trailing_slash=false, cachebust=true)|'
 )
 
 mode="${1:-check}"
