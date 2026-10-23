@@ -1,0 +1,10 @@
+{#- Embeds a YouTube video through youtube-nocookie.com, which the CSP in
+    config.toml allows. Shown full width like tabi's full_width_image (see
+    sass/custom.scss); tabi keeps iframes at 16:9.
+
+    Usage: {{< youtube id="dQw4w9WgXcQ" />}} -#}
+{% component youtube(id: string, title = "YouTube video") %}
+<div class="full-width">
+    <iframe src="https://www.youtube-nocookie.com/embed/{{ id }}" title="{{ title | escape }}" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+{% endcomponent youtube %}

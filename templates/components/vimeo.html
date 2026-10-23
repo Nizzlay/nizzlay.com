@@ -1,0 +1,10 @@
+{#- Embeds a Vimeo video without tracking (dnt=1), from player.vimeo.com, which
+    the CSP in config.toml allows. Shown full width like tabi's
+    full_width_image (see sass/custom.scss); tabi keeps iframes at 16:9.
+
+    Usage: {{< vimeo id="14791691" />}} -#}
+{% component vimeo(id: string, title = "Vimeo video") %}
+<div class="full-width">
+    <iframe src="https://player.vimeo.com/video/{{ id }}?dnt=1" title="{{ title | escape }}" loading="lazy" allow="fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+{% endcomponent vimeo %}

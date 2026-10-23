@@ -1,0 +1,10 @@
+// Site-specific additions to tabi, loaded through `stylesheets` in config.toml.
+
+// Videos from the youtube/vimeo components sit in a .full-width wrapper, like
+// tabi's full_width_image. tabi's default iframe style indents them by 15% on
+// both sides and caps them at 70% wide; inside the wrapper, use all of it.
+.full-width iframe {
+    margin-inline: 0;
+    width: 100%;
+    max-width: 100%;
+}
