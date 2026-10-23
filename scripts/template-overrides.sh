@@ -23,6 +23,10 @@ OVERRIDES=(
     # without one here too, the home page downloads it twice.
     'partials/home_banner.html'
     's|get_url(path=header.img, trailing_slash=false)|get_url(path=header.img, trailing_slash=false, cachebust=true)|'
+    # tabi declares every favicon as a PNG; the site's is an SVG (img/profile.svg).
+    # Cache-busted like the banner and h-card, which use the same file.
+    'partials/header.html'
+    's|<link rel="icon" type="image/png" href="{{ get_url(path=config.extra.favicon) }}"/>|<link rel="icon" type="{% if config.extra.favicon is ending_with(pat=".svg") %}image/svg+xml{% else %}image/png{% endif %}" href="{{ get_url(path=config.extra.favicon, cachebust=true) }}"/>|'
 )
 
 mode="${1:-check}"

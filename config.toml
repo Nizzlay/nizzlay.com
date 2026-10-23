@@ -211,7 +211,7 @@ enable_cards_tag_filtering = false
 invert_title_order = true
 
 # Full path after the base URL required. So if you were to place it in "static" it would be "/favicon.ico"
-favicon = "/img/favicon.ico"
+favicon = "/img/profile.svg"
 
 # Add an emoji here to use it as favicon.
 # Compatibility: https://caniuse.com/link-icon-svg
@@ -401,7 +401,7 @@ with_mail = true
 with_social_links = true
 # Homepage url. Defaults to the value of 'base_url'.
 # homepage = "https://myhomepage.net"
-avatar = "img/profile.webp"
+avatar = "img/profile.svg"
 # Display name, default to the value of 'author'.
 full_name = "Niels Gouman"
 # Small bio, as shown on social media profiles.

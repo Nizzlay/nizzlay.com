@@ -17,7 +17,7 @@ Start blogging in minutes with [Zola](https://www.getzola.org/) and [tabi](https
 
 1. On the top right of this page, click "Use this template" → "Create a new repository"
 2. Replace placeholders in `content/_index.md` and in the first four lines of `config.toml`
-3. Save your profile photo to `static/img/profile.webp` (or change the path to your image in `content/_index.md`)
+3. Save your profile photo to `static/img/profile.svg` (or change the path to your image in `content/_index.md`)
 4. Start writing in `content/blog/`. See `content/blog/hello.md` for an example
 
 > [!TIP]
@@ -39,7 +39,7 @@ Start blogging in minutes with [Zola](https://www.getzola.org/) and [tabi](https
 │       └── _index.md        # Projects section configuration
 │── static/
 │   └── img/
-│       └── profile.webp     # Profile photo for home page
+│       └── profile.svg      # Profile picture (home page, h-card, favicon)
 └── themes/
     └── tabi/                # tabi theme
 ```

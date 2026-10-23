@@ -9,7 +9,7 @@ draft = true
 tags = ["meta"]
 
 [extra]
-local_image = "img/profile.webp"
+local_image = "img/profile.svg"
 +++
 
 A minimal project to demonstrate how project pages work in tabi. This template supports Markdown formatting, code blocks, and more.

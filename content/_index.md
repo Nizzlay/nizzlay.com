@@ -2,7 +2,7 @@
 title = "Latest posts"
 
 [extra]
-header = { title = "Hi, I'm Niels! 👋", img = "img/profile.webp", img_alt = "'Nizzlay' a.k.a. 'Niels Gouman'" }
+header = { title = "Hi, I'm Niels! 👋", img = "img/profile.svg", img_alt = "'Nizzlay' a.k.a. 'Niels Gouman'" }
 section_path = "blog/_index.md"
 max_posts = 5
 +++
