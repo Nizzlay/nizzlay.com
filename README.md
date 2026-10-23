@@ -69,6 +69,30 @@ Refer to the [Zola documentation](https://www.getzola.org/documentation/deployme
 - [Vercel](https://www.getzola.org/documentation/deployment/vercel/)
 - [Zeabur](https://www.getzola.org/documentation/deployment/zeabur/)
 
+### Pre-compressed files
+
+The publish workflow uploads brotli (quality 11) and zopfli gzip copies of every
+text file to `_br/` and `_gz/` in the bucket, under the original paths and with
+`Content-Encoding` set. The CloudFront Function in
+[`cloudfront/precompressed.js`](cloudfront/precompressed.js) serves them,
+based on the viewer's `Accept-Encoding`. It's attached to the distribution's
+default behaviour as a viewer request function, and set up by hand:
+
+```bash
+aws cloudfront create-function --name precompressed \
+  --function-config Comment="Serve pre-compressed copies",Runtime=cloudfront-js-2.0 \
+  --function-code fileb://cloudfront/precompressed.js
+aws cloudfront publish-function --name precompressed --if-match <ETag>
+```
+
+Then add it under *Function associations → Viewer request* in the default
+behaviour. After changing the function, run `update-function` and
+`publish-function` again. If the extension list changes, update
+`COMPRESSIBLE` in both the function and `.github/workflows/publish.yml`.
+
+Only attach the function once a deploy has uploaded `_br/` and `_gz/`;
+otherwise it points every page at files that don't exist yet.
+
 ## Updating tabi
 
 ### Automated updates

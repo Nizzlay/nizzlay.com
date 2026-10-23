@@ -20,6 +20,28 @@ jobs:
           tool: zola@0.23.6
       - name: Build
         run: zola build
+      # Brotli (quality 11) and zopfli (the smallest gzip) copies of every text
+      # file, in public/_br/ and public/_gz/ under their original paths, so S3
+      # still guesses the right Content-Type. The CloudFront Function in
+      # cloudfront/precompressed.js serves them; CloudFront's own on-the-fly
+      # compression is weaker. COMPRESSIBLE must match the list in that function.
+      - name: Pre-compress
+        run: |
+          sudo apt-get install -y --no-install-recommends brotli zopfli > /dev/null
+          COMPRESSIBLE=(html css js mjs json xml xsl txt svg ico ttf webmanifest map)
+          match=()
+          for ext in "${COMPRESSIBLE[@]}"; do match+=(-o -iname "*.$ext"); done
+
+          cd public
+          find . -type f \( "${match[@]:1}" \) -printf '%P\0' > ../compressible
+          xargs -0 -P "$(nproc)" -n 1 sh -c '
+            mkdir -p "_br/$(dirname "$1")" "_gz/$(dirname "$1")"
+            brotli --quality=11 --lgwin=24 --stdout -- "$1" > "_br/$1"
+            zopfli -c -- "$1" > "_gz/$1"
+          ' sh < ../compressible
+          echo "Compressed $(tr -cd '\0' < ../compressible | wc -c) files" \
+            "($(xargs -0 du -ck < ../compressible | tail -1 | cut -f1) KB):" \
+            "brotli $(du -sk _br | cut -f1) KB, gzip $(du -sk _gz | cut -f1) KB"
       # Deployed with the AWS CLI (preinstalled on the runner) instead of a
       # third-party action, so there is no Node runtime to be deprecated.
       - name: Deploy to S3
@@ -40,14 +62,26 @@ jobs:
             exclude+=(--exclude "*.$ext")
           done
 
-          aws s3 sync public/ "s3://$BUCKET" --delete --no-progress \
-            --exclude '*' "${include[@]}" \
-            --cache-control 'max-age=31536000, public'
+          # Sync public/ (or one of its compressed copies) to the bucket, with
+          # both cache lifetimes; extra arguments are passed to both passes, last,
+          # because later --include/--exclude filters win.
+          # --exclude '*.DS_Store' keeps macOS junk out if public/ was built locally.
+          sync() {
+            local src="$1" dest="$2"; shift 2
+            aws s3 sync "$src" "$dest" --delete --no-progress \
+              --exclude '*' "${include[@]}" \
+              --cache-control 'max-age=31536000, public' "$@"
+            aws s3 sync "$src" "$dest" --delete --no-progress \
+              "${exclude[@]}" --exclude '*.DS_Store' \
+              --cache-control 'max-age=604800, public' "$@"
+          }
 
-          # --exclude keeps macOS junk out of the bucket if public/ was built locally.
-          aws s3 sync public/ "s3://$BUCKET" --delete --no-progress \
-            "${exclude[@]}" --exclude '*.DS_Store' \
-            --cache-control 'max-age=604800, public'
+          # Compressed copies first, so the function never points at a copy
+          # that isn't there yet. Excluded paths are also kept out of --delete,
+          # so syncing the originals leaves _br/ and _gz/ alone.
+          sync public/_br/ "s3://$BUCKET/_br" --content-encoding br
+          sync public/_gz/ "s3://$BUCKET/_gz" --content-encoding gzip
+          sync public/ "s3://$BUCKET" --exclude '_br/*' --exclude '_gz/*'
       - name: Invalidate CloudFront
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
