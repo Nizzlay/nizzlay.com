@@ -19,6 +19,10 @@ jobs:
         with:
           submodules: true
 
+      # Fails when tabi changed a template the site keeps a modified copy of.
+      - name: Check template overrides
+        run: scripts/template-overrides.sh check
+
       - name: Zola Build
         uses: shalzz/zola-deploy-action@v0.23.6
         env:
