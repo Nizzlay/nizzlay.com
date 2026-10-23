@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>573508767.56116104</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Quit</string>
+						<key>Application</key>
+						<dict>
+							<key>BundleIdentifier</key>
+							<string>jp.co.pfu.ScanSnap.V10L10</string>
+							<key>Name</key>
+							<string>ScanSnap Manager</string>
+							<key>NewFile</key>
+							<string>/Applications/ScanSnap/ScanSnap Manager.app</string>
+						</dict>
+						<key>MacroActionType</key>
+						<string>QuitSpecificApp</string>
+						<key>Target</key>
+						<string>Specific</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>584807734.23533499</real>
+				<key>ModificationDate</key>
+				<real>584807779.89006305</real>
+				<key>Name</key>
+				<string>ScanSnap Stop</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>Attach</key>
+						<false/>
+						<key>MacroTriggerType</key>
+						<string>USBDevice</string>
+						<key>Name</key>
+						<string>ScanSnap S300M</string>
+						<key>TargetType</key>
+						<string>Named</string>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>044DCEAC-11B6-4685-995C-71C3C40F00A8</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Hardware</string>
+		<key>ToggleMacroUID</key>
+		<string>2A69C085-BF67-4DCF-9022-B063A5D4AFEC</string>
+		<key>UID</key>
+		<string>1BC9A5F8-55D9-4321-90B5-A78C0157B9A9</string>
+	</dict>
+</array>
+</plist>
