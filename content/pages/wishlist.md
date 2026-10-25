@@ -2,6 +2,9 @@
 title = "Wishlist"
 template = "info-page.html"
 path = "wishlist"
+aliases = [
+    "wensenlijstje",
+]
 +++
 
 If I have, in some way, provided value for you, and you would like to give back, this is a list of things, in random order, as inspiration.

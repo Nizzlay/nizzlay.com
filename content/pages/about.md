@@ -2,6 +2,12 @@
 title = "About"
 template = "info-page.html"
 path = "about"
+aliases = [
+    "over-niels",
+    "over",
+    "author/nizzlay",
+    "tag/niels-gouman",
+]
 +++
 
 Nizzlay is me, Niels. I'm 30-something-old[^1] dude from Dordrecht, Netherlands 🇳🇱. Hurray, orange. 

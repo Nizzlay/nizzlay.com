@@ -2,6 +2,11 @@
 title = "Now"
 template = "info-page.html"
 path = "now"
+aliases = [
+    "nu",
+    "tweede-evaluatie-van-voornemens-2010",
+    "diensten",
+]
 +++
 
 ## Location
