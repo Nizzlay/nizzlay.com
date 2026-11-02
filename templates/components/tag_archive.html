@@ -1,0 +1,37 @@
+{#- A tag's posts as an archive, grouped by year, newest first, with the markup
+    of tabi's archive page (archive.html), so it's styled the same. Used in
+    templates (tags/single.html, tag-archive.html), not in content: taxonomies
+    aren't available while Markdown renders. -#}
+{% component tag_archive(term: map, @config: map, @language_strings = {}) %}
+
+{%- set posts = term.pages | sort(attribute="date") | reverse -%}
+{%- set date_locale = language_strings["date_locale"] | default(value="en_GB") -%}
+{%- set date_format = config.extra.archive_date_format | default(value="dd MMM") -%}
+{#- group_by doesn't keep the posts' order, so sort the years separately. -#}
+{%- set posts_by_year = posts | group_by(attribute="year") -%}
+{%- set years = [] -%}
+{%- for year, ignored in posts_by_year -%}
+    {%- set_global years = [...years, year] -%}
+{%- endfor -%}
+{%- set years = years | sort | reverse %}
+<div class="archive">
+    <ul class="list-with-title">
+        {%- for year in years %}
+        <li>
+            <h2 class="listing-title">{{ year }}</h2>
+            <ul class="listing">
+                {%- for post in posts_by_year[year] %}
+                <li class="listing-item">
+                    <div class="post-time">
+                        <span class="date">{{ post.date | date(format=date_format, locale=date_locale) }}</span>
+                    </div>
+                    <a href="{{ post.permalink }}" title="{{ post.title }}">{{ post.title | markdown(inline=true) | safe }}</a>
+                </li>
+                {%- endfor %}
+            </ul>
+        </li>
+        {%- endfor %}
+    </ul>
+</div>
+
+{% endcomponent tag_archive %}

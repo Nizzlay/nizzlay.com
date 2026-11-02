@@ -32,6 +32,11 @@ OVERRIDES=(
     'partials/header.html'
     's|<link rel="icon" type="image/png" href="{{ get_url(path=config.extra.favicon) }}"/>|<link rel="icon" type="{% if config.extra.favicon is ending_with(pat=".svg") %}image/svg+xml{% else %}image/png{% endif %}" href="{{ get_url(path=config.extra.favicon, cachebust=true) }}"/>|
 s|{%- set stylesheets = \[...stylesheets, "giallo.css"\] -%}|{%- if (page?.content \| default(value="")) is containing(pat="giallo z-code") or (section?.content \| default(value="")) is containing(pat="giallo z-code") -%}{%- set stylesheets = [...stylesheets, "giallo.css"] -%}{%- endif -%}|'
+    # Tag pages list their posts as an archive (by year, titles only), like
+    # the blog archive, instead of with summaries. Keeps tabi's header and feed
+    # icon. See templates/components/tag_archive.html.
+    'tags/single.html'
+    's|{{< list_posts posts={term.pages} max={max} />}}|{{< tag_archive term={term} />}}|'
 )
 
 mode="${1:-check}"

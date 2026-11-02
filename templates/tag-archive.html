@@ -1,0 +1,31 @@
+{#- A page that shows the archive of the tag in `extra.archive_tag`, the same
+    as that tag's own page (tags/single.html), with the page's content as an
+    introduction. Taxonomies aren't available while a page's Markdown renders,
+    so this can't be a component. -#}
+{% extends "base.html" %}
+
+{% block main_content %}
+
+{%- set term = get_taxonomy_term(kind="tags", term=page.extra.archive_tag, lang=lang) -%}
+{%- set tags = get_taxonomy(kind="tags", lang=lang) -%}
+{%- set taxonomy = tags.kind -%}
+
+{#- Feed icon, as in tabi's tags/single.html -#}
+{%- set generate_feed = config.generate_feeds -%}
+{%- set feed_url = config.feed_filenames[0] -%}
+{%- set feed_pre_conditions = generate_feed and feed_url and taxonomy.feed -%}
+{%- set show_feed_icon = feed_pre_conditions and [page for page in term.pages if page.date] | length > 0 -%}
+
+{{< page_header title={page.title} term={term} show_feed_icon={show_feed_icon} />}}
+
+{%- if page.content %}
+<div id="page-content">
+    <main>
+        {{ page.content | safe }}
+    </main>
+</div>
+{%- endif %}
+
+{{< tag_archive term={term} />}}
+
+{% endblock main_content %}
