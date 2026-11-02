@@ -6,6 +6,8 @@
 # 2. Keep the `updated` field of committed posts in sync with their last
 #    modified date, so tabi's "Last updated" line stays accurate without
 #    editing it by hand.
+# 3. Check the site's copies of tabi templates against tabi + their edits (see
+#    scripts/template-overrides.sh), when a commit touches tabi or the copies.
 #
 # Adapted from https://osc.garden/blog/zola-date-git-hook/ with these changes:
 #   - images go through ImageOptim's pngquant/oxipng/jpegoptim instead of
@@ -27,6 +29,16 @@ error_exit() {
 # collected before the image steps below rewrite any posts, so a post that only
 # had its images converted doesn't get a new `updated` date.
 staged=$(git diff --cached --name-only --diff-filter=M -- '*.md' ':(exclude)*_index.md')
+
+# --- Template overrides -------------------------------------------------------
+
+# The same check as the test build, so an out-of-date copy is caught before
+# it's pushed. Only when tabi (the submodule), the copies or the script change,
+# since nothing else can make a copy go stale.
+if [ -n "$(git diff --cached --name-only -- themes/tabi templates scripts/template-overrides.sh)" ]; then
+    scripts/template-overrides.sh check \
+        || error_exit "template overrides are out of date; run scripts/template-overrides.sh update"
+fi
 
 # --- Images -------------------------------------------------------------------
 
