@@ -24,4 +24,4 @@ I do try to prioritise working out. If possible (which isn't always), I'd love t
 ## Focus
 Besides work, my main focus is health related. I have some extra kg of body fat that I'd like to get rid of. I enjoy working out, but clearly that's not enough. So I've been playing around with actually dieting ([Slow Carb diet, by Tim Ferriss](https://tim.blog/wp-content/uploads/2019/07/tim_ferriss_the-4-hour-chef_one_pager_slow_carb_diet.pdf)). Somehow I need to find ways to add more movement into my days as well, working from home is great, but it's hard getting 10.000 steps.
 
-Last updated: November 2025 - This page has been inspired by [nownownow](https://nownownow.com/about). More [about Niels](/about/).
+Last updated: November 2025 - This page has been inspired by [nownownow](https://nownownow.com/about). More [about Niels](@/pages/about.md).
