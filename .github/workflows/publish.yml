@@ -55,65 +55,11 @@ jobs:
             "brotli $(du -sk _br | cut -f1) KB, gzip $(du -sk _gz | cut -f1) KB"
           echo "Kept uncompressed (not smaller):" \
             "brotli $(wc -l < ../uncompressed-br), gzip $(wc -l < ../uncompressed-gz)"
-      # Deployed with the AWS CLI (preinstalled on the runner) instead of a
-      # third-party action, so there is no Node runtime to be deprecated.
-      - name: Deploy to S3
+      - name: Deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: eu-west-1
           BUCKET: ${{ secrets.S3_BUCKET }}
-        run: |
-          # Assets are either hash-busted by Zola (CSS/JS) or get a new filename when
-          # replaced, so they can be cached for a year. Everything else (HTML, feeds,
-          # robots.txt, the feed stylesheet…) keeps the same URL across deploys and
-          # gets a week, matched by whatever the first pass did not claim.
-          ASSETS=(js css svg ttf woff woff2 pdf png jpg jpeg JPG JPEG gif ico webp avif)
-          include=() exclude=()
-          for ext in "${ASSETS[@]}"; do
-            include+=(--include "*.$ext")
-            exclude+=(--exclude "*.$ext")
-          done
-
-          # Sync public/ (or one of its compressed copies) to the bucket, with
-          # both cache lifetimes; extra arguments are passed to both passes, last,
-          # because later --include/--exclude filters win.
-          # --exclude '*.DS_Store' keeps macOS junk out if public/ was built locally.
-          sync() {
-            local src="$1" dest="$2"; shift 2
-            aws s3 sync "$src" "$dest" --delete --no-progress \
-              --exclude '*' "${include[@]}" \
-              --cache-control 'max-age=31536000, public' "$@"
-            aws s3 sync "$src" "$dest" --delete --no-progress \
-              "${exclude[@]}" --exclude '*.DS_Store' \
-              --cache-control 'max-age=604800, public' "$@"
-          }
-
-          # Compressed copies first, so the function never points at a copy
-          # that isn't there yet. Excluded paths are also kept out of --delete,
-          # so syncing the originals leaves _br/ and _gz/ alone, and syncing the
-          # copies leaves the uncompressed ones (see Pre-compress) alone.
-          for enc in br gz; do
-            if [ "$enc" = br ]; then encoding=br; else encoding=gzip; fi
-            skip=()
-            while IFS= read -r f; do skip+=(--exclude "$f"); done < "uncompressed-$enc"
-            sync "public/_$enc/" "s3://$BUCKET/_$enc" --content-encoding "$encoding" "${skip[@]}"
-
-            while IFS= read -r f; do
-              cache='max-age=604800, public'
-              for ext in "${ASSETS[@]}"; do
-                if [[ "$f" == *."$ext" ]]; then cache='max-age=31536000, public'; fi
-              done
-              aws s3 cp "public/_$enc/$f" "s3://$BUCKET/_$enc/$f" --no-progress --cache-control "$cache"
-            done < "uncompressed-$enc"
-          done
-          sync public/ "s3://$BUCKET" --exclude '_br/*' --exclude '_gz/*'
-      - name: Invalidate CloudFront
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: eu-west-1
-        run: |
-          aws cloudfront create-invalidation \
-            --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
-            --paths "/*"
+          DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: scripts/deploy.sh
