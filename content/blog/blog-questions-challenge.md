@@ -1,6 +1,7 @@
 +++
 title = "Blog Questions Challenge"
 date = "2025-01-14"
+updated = "2026-10-27"
 description = "Truth be told, it’s not much of a challenge, more a couple of questions like an a-sync interview. But I’m always fascinated by the why behind things, so it’s fun nonetheless."
 
 [taxonomies]
@@ -22,7 +23,7 @@ My main drive has been that I enjoy having my own little piece of the internet. 
 ## What platform are you using to manage your blog and why did you choose it?
 Currently, I'm using [Zola](https://www.getzola.org/). I picked it primarily because I just couldn't get used to the syntax for the previous site generator I had. Plus, it's written in Rust, which [is a meme](https://transitiontech.ca/random/RIIR).
 
-All the (techy) details can be found in [the colophon](/colophon/).
+All the (techy) details can be found in [the colophon](@/pages/colophon.md).
 
 ## Have you blogged on other platforms before?
 Yes, many. I started with several forum software packages, mainly [phpBB](https://www.phpbb.com/) stuck for a while. Then it was mostly [WordPress](https://wordpress.com/), on several different websites. Later I transitioned to static website generators, [Jekyll](https://jekyllrb.com/), [Hexo](https://hexo.io/), [Hugo](https://gohugo.io/), and now Zola.
