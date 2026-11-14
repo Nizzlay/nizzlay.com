@@ -286,6 +286,8 @@ while IFS= read -r file; do
 
     unquote() { sed -e 's/^[a-z]* = //' -e 's/[[:space:]]*$//' -e 's/^"//' -e 's/"$//'; }
     published=$(printf '%s\n' "$date_line" | unquote)
+    # A `date` with a time (2026-10-22T14:37:45+02:00) is compared by day.
+    published=${published:0:10}
     last_modified=$(date -r "$file" +'%Y-%m-%d')
 
     # A post edited on the day it was published needs no `updated` field.
