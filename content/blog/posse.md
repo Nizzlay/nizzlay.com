@@ -1,7 +1,8 @@
 +++
-title = "Changes: 23rd of January 2025"
+title = "POSSE"
 date = "2025-01-23"
 updated = "2025-01-24"
+aliases = ["/blog/changes-2025-01-23/"]
 description = "The IndieWeb says you should POSSE, so I've set some things up for that."
 
 [taxonomies]
